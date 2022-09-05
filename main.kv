@@ -1,0 +1,139 @@
+#:set BG_COLOR 88/255, 88/255, 88/255
+#:set BTN_COLOR 59/255, 165/255, 93/255
+
+
+<EncFields>:
+    key: key.__self__
+    Label:
+        id: key
+        text: "Please Generate a Key"
+        size_hint: 1, 0.2
+        pos_hint: {"top": 1}
+
+    CoolButton:
+        text: "Encrypt"
+        size_hint: 0.5, 0.2
+        on_press: app.root.enc_page.set_encryption()
+
+    Button:
+        text: "Generate Key"
+        size_hint: 0.5, 0.2
+        pos_hint: {"x": 0.5}
+        on_press: app.root.enc_page.generate_key()
+
+
+<CoolButton@Button>:
+    size_hint: 0.4, 0.1
+    background_color: 0, 0, 0, 0
+    canvas.before:
+        Color:
+            rgb: BTN_COLOR
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+
+
+<DecPage>:
+    path_label: path_label.__self__
+    key_input: key_input.__self__
+    canvas.before:
+        Color:
+            rgb: BG_COLOR
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    Label:
+        id: path_label
+        size_hint: 1, 0.1
+        pos_hint: {"top": 1}
+        text: "Drop your encrypted file"
+
+    TextInput:
+        id: key_input
+        size_hint: 0.8, 0.1
+        pos_hint: {"center_y": 0.5, "x": 0.1}
+        hint_text: "enter key"
+        font_size: "30sp"
+        text-alignment: "center"
+
+    CoolButton:
+        text: "Decrypt"
+        size_hint: 0.5, 0.1
+        pos_hint: {"x": 0.5}
+        on_press: root.decrypt()
+
+    CoolButton:
+        text: "Back"
+        size_hint: 0.5, 0.1
+        on_press: root.back()
+
+
+
+
+<EncPage>:
+    path_label: path_label.__self__
+    canvas.before:
+        Color:
+            rgb: BG_COLOR
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    Label:
+        id: path_label
+        size_hint: 1, 0.1
+        pos_hint: {"top": 1}
+        text: "Drop your pdf"
+
+    CoolButton:
+        text: "back"
+        on_press: root.back()
+        size_hint: 0.5, 0.1
+
+    CoolButton:
+        text: "Encrypt"
+        size_hint: 0.5, 0.1
+        pos_hint: {"x": 0.5}
+        on_press: root.ask_enc()
+
+
+
+
+<MainPage>:
+    enc_btn: enc_btn.__self__
+    dec_btn: dec_btn.__self__
+    canvas.before:
+        Color:
+            rgb: BG_COLOR
+        Rectangle:
+            size: self.size
+
+    CoolButton:
+        id: enc_btn
+        text: "Encrypt PDF"
+        pos_hint: {"top": 0.65, "center_x": 0.5}
+        on_press: self.parent.to_enc_page()
+
+
+    CoolButton:
+        id: dec_btn
+        text: "Decrypt PDF"
+        pos_hint: {"top": 0.5, "center_x": 0.5}
+        on_press: self.parent.to_dec_page()
+
+
+RootLayout:
+    enc_page: enc_page.__self__
+    dec_page: dec_page.__self__
+
+    MainPage:
+        id: main_page
+        name: "main page"
+    EncPage:
+        id: enc_page
+        name: "enc page"
+
+    DecPage:
+        id: dec_page
+        name: "dec page"
