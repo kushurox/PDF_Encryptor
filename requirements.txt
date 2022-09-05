@@ -2,3 +2,4 @@ Kivy==2.1.0
 Pillow==9.2.0
 PyMuPDF
 Cryptography
+pyinstaller
